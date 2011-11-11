@@ -6,6 +6,7 @@ from mako.lookup import TemplateLookup
 from mako.template import Template
 import os
 import sys
+import simplejson
 
 controller_resource_method_pattern = r'(?P<controller>[^/\?\&]+)(/(?P<resource_id>[^/\?\&]+))?(/(?P<method>[^/\?\&]+))?'
 
@@ -41,4 +42,11 @@ def render_to_response(filename, dictionary):
         return HttpResponse(template.render(**dictionary))
     except:
         return HttpResponseServerError(exceptions.html_error_template().render())
-        
+
+class HttpResponseJSON(HttpResponse):
+    def __init__(self, data):
+        HttpResponse.__init__(self, simplejson.dumps(data, ensure_ascii=False), content_type='application/json')
+
+def render_to_json(data):
+    return HttpResponseJSON(data)
+
