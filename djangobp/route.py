@@ -8,20 +8,13 @@ import os
 import sys
 import simplejson
 
-controller_resource_method_pattern = r'(?P<controller>[^/\?\&]+)(/(?P<resource_id>[^/\?\&]+))?(/(?P<method>[^/\?\&]+))?'
+controller_resource_method_pattern = r'(?P<controller>[^/\?\&.]+)(/(?P<resource_id>[^/\?\&.]+))?(/(?P<method>[^/\?\&.]+))?(?P<format>\.(\w+)$)?'
 
 def router(controllers_root):
     return curry(route, controllers_root)
 
-def route(controllers_root, request, controller='root', resource_id=None, method=None):
-    xml = False
-    if controller.endswith('.xml'):
-        xml = True
-        controller = controller.replace('.xml','')
-
-    if resource_id is not None and resource_id.endswith('.xml'):
-        xml = True
-        resource_id = resource_id.replace('.xml', '')
+def route(controllers_root, request, controller='root', resource_id=None, method=None, format=None):
+    request.format = format[1:] if format is not None else 'plain'
 
     request.app_name = controllers_root.__name__[:controllers_root.__name__.rfind('.')]
     module_name = controllers_root.__name__ + '.' + controller
@@ -35,8 +28,7 @@ def route(controllers_root, request, controller='root', resource_id=None, method
             else:
                 method = 'show'
         else: method = 'index'
-        if xml: method += '_xml'
-        
+
     return getattr(sys.modules[module_name], method)(request, resource_id)
 
 
