@@ -32,10 +32,8 @@ def route(controllers_root, request, controller='root', resource_id=None, method
 def render_to_response(filename, dictionary):
     # using app_name that is set by route()
     app_name = dictionary['request'].app_name
-    print app_name
     templates = importlib.import_module(app_name + '.templates')
     try:
-        print templates.__path__[0]
         lookup = TemplateLookup(directories=[templates.__path__[0]], input_encoding='utf8')
         template = Template(filename=templates.__path__[0] + os.sep + filename, input_encoding='utf8', output_encoding='utf8', lookup=lookup)
         return HttpResponse(template.render(**dictionary))
