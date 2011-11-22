@@ -1,5 +1,5 @@
 from distutils.core import setup
 setup(name='djangobp',
       version='1.0',
-      packages=['djangobp'],
+      packages=['djangobp', 'djangobp.management.commands'],
       )
