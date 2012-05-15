@@ -15,6 +15,7 @@ class Command(BaseCommand):
         
         shutil.copytree(os.path.dirname(djangobp.__file__) + os.sep + 'scaffold/app/controllers', path + 'controllers')
         shutil.copytree(os.path.dirname(djangobp.__file__) + os.sep + 'scaffold/app/templates', path + '/templates')
+        shutil.copytree(os.path.dirname(djangobp.__file__) + os.sep + 'scaffold/app/static', path + '/static')
         
         # TODO urls.py edit: urlpatterns += (controller_method_resource_pattern, route(controller))
         # TODO settings.py edit: app

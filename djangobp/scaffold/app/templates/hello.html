@@ -1,0 +1,14 @@
+<%inherit file="/layout.html"/>
+<%block name="title">Hello!!</%block>
+<%block name="sidebar">
+<h3>Hello SideBar!</h3>
+</%block>
+
+<h2>${request.app_name}/controllers/hello.py</h2>
+<p>
+    request.path ${request.path}
+    <br>
+    resource_id ${resource_id}
+    <br>
+    method ${method}
+</p>
