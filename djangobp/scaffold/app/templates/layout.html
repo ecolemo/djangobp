@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml; charset=UTF-8" />
+<title><%block name="title"></%block></title>
+<link rel="stylesheet" type="text/css" href="/static/css/bootstrap.css"/>
+<link rel="stylesheet" type="text/css" href="/static/css/style.css"/>
+
+<%block name="head">
+</%block>
+</head>
+<body>
+<div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+        <a href="/" class="brand">DjangoBP Scaffold</a>
+        <ul class="nav">
+          <li class="active">
+            <a href="/">Home</a>
+          </li>
+          <li><a href="/hello">Hello</a></li>
+        </ul>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid">
+  <div class="row-fluid">
+    <div class="span2 sidebar">
+      <%block name="sidebar">
+        <h3>SideBar</h3>
+        <ul>
+          <li>Your Menu</li>
+        </ul>
+      </%block>
+      Powered by
+      <br>
+      <a href="https://github.com/ecolemo/djangobp">djangobp</a>
+      <br>
+      <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap</a>
+    </div>
+    <div class="span10">
+      ${self.body()}
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

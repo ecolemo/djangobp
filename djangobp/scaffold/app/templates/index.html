@@ -1,0 +1,16 @@
+<%inherit file="/layout.html"/>
+<%block name="title">Welcome!!</%block>
+
+<h1>Welcome to DjangoBP scaffold page!</h1>
+<h2>${request.app_name}/controllers/__init__.py</h2>
+<p>
+    This Page
+</p>
+<h2>${request.app_name}/controllers/hello.py</h2>
+<p>
+    <a href="/hello">/hello</a>
+    <br>
+    <a href="/hello/5">/hello/5</a>
+    <br>
+    <a href="/hello/5/custom">/hello/5/custom</a>
+</p>

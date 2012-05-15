@@ -4,20 +4,25 @@ from django.utils.functional import curry
 from mako import exceptions
 from mako.lookup import TemplateLookup
 from mako.template import Template
+import datetime
 import os
-import sys
 import simplejson
+import sys
 
-controller_resource_method_pattern = r'(?P<controller>[^/\?\&.]+)(/(?P<resource_id>[^/\?\&.]+))?(/(?P<method>[^/\?\&.]+))?(?P<format>\.(\w+)$)?'
+controller_resource_method_pattern = r'(?P<controller>[^/\?\&.]+)?(/(?P<resource_id>[^/\?\&.]+))?(/(?P<method>[^/\?\&.]+))?(?P<format>\.(\w+)$)?'
 
 def router(controllers_root):
     return curry(route, controllers_root)
 
-def route(controllers_root, request, controller='root', resource_id=None, method=None, format=None):
+def route(controllers_root, request, controller=None, resource_id=None, method=None, format=None):
     request.format = format[1:] if format is not None else 'plain'
 
     request.app_name = controllers_root.__name__[:controllers_root.__name__.rfind('.')]
-    module_name = controllers_root.__name__ + '.' + controller
+    if controller:
+        module_name = controllers_root.__name__ + '.' + controller
+    else:
+        module_name = controllers_root.__name__
+        
     __import__(module_name)
 
     if not method:
@@ -45,8 +50,16 @@ def render_to_response(filename, dictionary):
 
 class HttpResponseJSON(HttpResponse):
     def __init__(self, data):
-        HttpResponse.__init__(self, simplejson.dumps(data, ensure_ascii=False), content_type='application/json')
+        HttpResponse.__init__(self, simplejson.dumps(data, ensure_ascii=False, cls=JSONDateEncoder), content_type='application/json')
 
+class JSONDateEncoder(simplejson.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, datetime.datetime):
+            return obj.isoformat() + 'Z'
+#            return obj.strftime('%Y-%m-%dT%H:%M:%S')
+        else:
+            return simplejson.JSONEncoder.default(self, obj)
+        
 def render_to_json(data):
     return HttpResponseJSON(data)
 
