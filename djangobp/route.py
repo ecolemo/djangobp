@@ -48,6 +48,7 @@ def render_to_response(filename, dictionary):
     except:
         return HttpResponseServerError(exceptions.html_error_template().render())
 
+@DeprecationWarning
 class HttpResponseJSON(HttpResponse):
     def __init__(self, data):
         HttpResponse.__init__(self, simplejson.dumps(data, ensure_ascii=False, cls=JSONDateEncoder), content_type='application/json')
