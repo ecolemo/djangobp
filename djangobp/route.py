@@ -22,7 +22,7 @@ def route(controllers_root, request, controller=None, resource_id=None, method=N
         module_name = controllers_root.__name__ + '.' + controller
     else:
         module_name = controllers_root.__name__
-        
+    
     __import__(module_name)
 
     if not method:
@@ -43,7 +43,7 @@ def render_to_response(filename, dictionary):
     templates = importlib.import_module(app_name + '.templates')
     try:
         lookup = TemplateLookup(directories=[templates.__path__[0]], input_encoding='utf8')
-        template = Template(filename=templates.__path__[0] + os.sep + filename, input_encoding='utf8', output_encoding='utf8', lookup=lookup)
+        template = Template(filename=templates.__path__[0] + os.sep + filename, input_encoding='utf8', output_encoding='utf8', lookup=lookup, imports=['from djangobp.textutil import gettext as _'])
         return HttpResponse(template.render(**dictionary))
     except:
         return HttpResponseServerError(exceptions.html_error_template().render())
