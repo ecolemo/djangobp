@@ -31,3 +31,6 @@ class ErrorLoggingMiddleWare(object):
             logger.exception(exception)
             print 'exception:', exception.message
             return HttpResponseServerError(exception.message)
+
+def to_json(obj):
+    return simplejson.dumps(obj, indent=4)

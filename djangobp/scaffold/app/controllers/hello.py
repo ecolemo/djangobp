@@ -1,7 +1,8 @@
-from djangobp.route import render_to_response
+from djangobp.makohelper import render_to_response
 
-def index(request, resource_id):
+def index(request):
     method = 'index'
+    resource_id = None
     return render_to_response('hello.html', locals())
 
 def show(request, resource_id):

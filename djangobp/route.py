@@ -8,6 +8,9 @@ import datetime
 import os
 import simplejson
 import sys
+import pkgutil
+import types
+from django.conf.urls import include, url
 
 controller_resource_method_pattern = r'(?P<controller>[^/\?\&.]+)?(/(?P<resource_id>[^/\?\&.]+))?(/(?P<method>[^/\?\&.]+))?(?P<format>\.(\w+)$)?'
 
@@ -36,11 +39,32 @@ def route(controllers_root, request, controller=None, resource_id=None, method=N
 
     return getattr(sys.modules[module_name], method)(request, resource_id)
 
-
+def discover_controllers(package):
+    urls = []
+    __import__(package)
+    urls.append(url('^$', getattr(sys.modules[package], 'index')))
+    
+    for _, name, _ in pkgutil.iter_modules([package.replace('.', '/')]):
+        __import__(package + '.' + name)
+        
+        controller = sys.modules[package + '.' + name]
+        
+        if 'index' in dir(controller):
+            urls.append(url(name, getattr(controller, 'index')))
+            
+        if 'show' in dir(controller):
+            urls.append(url(name + '/(?P<resource_id>[^/\?\&.]+)', getattr(controller, 'show')))
+            
+        for member in dir(controller):
+            if isinstance(member, types.FunctionType):
+                urls.append(url(name + '/(?P<resource_id>[^/\?\&.]+)/' + member, getattr(controller, member)))
+    return include(urls)
+    
 def render_to_response(filename, dictionary):
     # using app_name that is set by route()
     app_name = dictionary['request'].app_name
     templates = importlib.import_module(app_name + '.templates')
+
     try:
         lookup = TemplateLookup(directories=[templates.__path__[0]], input_encoding='utf8')
         template = Template(filename=templates.__path__[0] + os.sep + filename, input_encoding='utf8', output_encoding='utf8', lookup=lookup, imports=['from djangobp.textutil import gettext as _'])

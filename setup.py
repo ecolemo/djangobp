@@ -9,4 +9,7 @@ setup(name='djangobp',
                 'djangobp.scaffold.app.controllers',
                 'djangobp.scaffold.app.static',
                 'djangobp.scaffold.app.templates'],
+      package_data={'djangobp.scaffold.app.static': ['css/*', 'js/*', 'images/*', 'fancybox/*'],
+                    'djangobp.scaffold.app.templates': ['*'],
+                    }
       )
