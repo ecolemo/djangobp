@@ -15,6 +15,8 @@ class CodeEditor(object):
         self.lines.insert(insert_index, '    ' + repr(value) + ',')
 
     def insert_line(self, line, after):
+        if line in self.lines: return
+        
         insert_index = 0
         for index, l in enumerate(self.lines):
             if re.match(after, l):
