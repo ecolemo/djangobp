@@ -5,6 +5,7 @@ class CodeEditor(object):
         self.filename = filename
         source = open(filename, 'r').read()
         self.lines = source.splitlines()
+        self.cursor = 0
 
     def insert_tuple_element(self, name, value):
         for index, line in enumerate(self.lines):
@@ -14,11 +15,25 @@ class CodeEditor(object):
         
         self.lines.insert(insert_index, '    ' + repr(value) + ',')
 
+    def go_line(self, expr):
+        for index, l in enumerate(self.lines[self.cursor:], self.cursor):
+            if expr in l:
+                self.cursor = index
+                break
+    
+    def replace_line(self, expr, replacement):
+        for index, l in enumerate(self.lines[self.cursor:], self.cursor):
+            if expr in l:
+                self.cursor = index
+                break
+            
+        self.lines[self.cursor] = self.lines[self.cursor].replace(expr, replacement)
+        
     def insert_line(self, line, after):
         if line in self.lines: return
         
         insert_index = 0
-        for index, l in enumerate(self.lines):
+        for index, l in enumerate(self.lines[self.cursor:], self.cursor):
             if re.match(after, l):
                 insert_index = index + 1
                 break;
