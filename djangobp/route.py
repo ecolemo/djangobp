@@ -10,6 +10,7 @@ import simplejson
 import sys
 import pkgutil
 import types
+import inspect
 from django.conf.urls import include, url
 
 controller_resource_method_pattern = r'(?P<controller>[^/\?\&.]+)?(/(?P<resource_id>[^/\?\&.]+))?(/(?P<method>[^/\?\&.]+))?(?P<format>\.(\w+)$)?'
@@ -56,8 +57,15 @@ def discover_controllers(package):
             urls.append(url(name + '/(?P<resource_id>[^/\?\&.]+)', getattr(controller, 'show')))
             
         for member in dir(controller):
-            if isinstance(member, types.FunctionType):
+            func = getattr(controller, member)
+            if not inspect.isfunction(func): continue
+            args = inspect.getargspec(func).args
+            if args[0] != 'request': continue
+            if len(args):
+                urls.append(url(name + '/' + member, getattr(controller, member)))
+            elif args[1] == 'resource_id':
                 urls.append(url(name + '/(?P<resource_id>[^/\?\&.]+)/' + member, getattr(controller, member)))
+                
     return include(urls)
     
 def render_to_response(filename, dictionary):
