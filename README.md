@@ -1,11 +1,17 @@
 # Django BoilerPlate codes
 The goal of djangobp is providing collection of common codes for django so that developers can skip boilerplate jobs.
 
-## commands
+## Installation
+	git clone git@github.com:ecolemo/djangobp.git
+	cd djangobp
+	python setup.py install
+	
+## manage.py commands
 ### scaffoldapp
 Scaffold app for quick start. 
 
 	./manage.py startapp someapp
+	djangobp-install
 	./manage.py scaffoldapp someapp
 
 This commands do these:

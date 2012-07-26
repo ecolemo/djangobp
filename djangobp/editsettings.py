@@ -1,4 +1,21 @@
+from django.conf import settings
+import importlib
+import os
 import re
+
+def install_app(app_name):
+    try:
+        importlib.import_module(app_name)
+    except:
+        print 'cannot import %s' % app_name
+        return
+    
+    project_path = os.path.dirname(os.path.normpath(os.sys.modules[settings.SETTINGS_MODULE].__file__))
+    settings_edit = CodeEditor(project_path + os.sep + 'settings.py')
+    settings_edit.insert_line("    '%s'," % app_name, 'INSTALLED_APPS')
+    settings_edit.commit()
+    print "edited " + project_path + os.sep + 'settings.py'
+        
 class CodeEditor(object):
     
     def __init__(self, filename):
