@@ -1,3 +1,8 @@
+'''
+Created on 2012. 10. 31.
+
+@author: youngrok
+'''
 from __future__ import unicode_literals
 from bson.objectid import ObjectId
 import math

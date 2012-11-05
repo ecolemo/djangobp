@@ -50,21 +50,19 @@ def discover_controllers(package):
         
         controller = sys.modules[package + '.' + name]
         
-        if 'index' in dir(controller):
-            urls.append(url(name, getattr(controller, 'index')))
-            
-        if 'show' in dir(controller):
-            urls.append(url(name + '/(?P<resource_id>[^/\?\&.]+)', getattr(controller, 'show')))
-            
         for member in dir(controller):
             func = getattr(controller, member)
             if not inspect.isfunction(func): continue
             args = inspect.getargspec(func).args
-            if args[0] != 'request': continue
-            if len(args):
-                urls.append(url(name + '/' + member, getattr(controller, member)))
-            elif args[1] == 'resource_id':
-                urls.append(url(name + '/(?P<resource_id>[^/\?\&.]+)/' + member, getattr(controller, member)))
+            
+            if len(args) == 0 or args[0] != 'request': continue
+            
+            urls.append(url(name + '/' + member + '/(?P<resource_id>[^/\?\&.]+)', func))
+            urls.append(url(name + '/' + member, func))
+
+        if 'index' in dir(controller):
+            urls.append(url(name, getattr(controller, 'index')))
+            
                 
     return include(urls)
     
