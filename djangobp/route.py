@@ -45,7 +45,7 @@ def discover_controllers(package):
     __import__(package)
     urls.append(url('^$', getattr(sys.modules[package], 'index')))
     
-    for _, name, _ in pkgutil.iter_modules([package.replace('.', '/')]):
+    for _, name, _ in pkgutil.iter_modules([sys.modules[package].__path__[0]]):
         __import__(package + '.' + name)
         
         controller = sys.modules[package + '.' + name]
