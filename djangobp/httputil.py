@@ -19,7 +19,7 @@ class BSONEncoder(simplejson.encoder.JSONEncoder):
         else:
             return simplejson.JSONEncoder.default(self, obj)
 
-simplejson.JSONEncoder = BSONEncoder
+#simplejson.JSONEncoder = BSONEncoder
 
 logger = logging.getLogger(__name__)
 
