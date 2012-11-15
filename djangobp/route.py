@@ -60,6 +60,8 @@ def discover_controllers(package):
             urls.append(url(name + '/' + member + '/(?P<resource_id>[^/\?\&.]+)', func))
             urls.append(url(name + '/' + member, func))
 
+        if 'show' in dir(controller):
+            urls.append(url(name + '/(?P<resource_id>[^/\?\&.]+)', func))
         if 'index' in dir(controller):
             urls.append(url(name, getattr(controller, 'index')))
             
