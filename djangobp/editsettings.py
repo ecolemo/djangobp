@@ -38,6 +38,11 @@ class CodeEditor(object):
                 self.cursor = index
                 break
     
+    def replace_all(self, expr, replacement):
+        for index, l in enumerate(self.lines, self.cursor):
+            if expr in l:
+                self.lines[index] = l.replace(expr, replacement)
+                
     def replace_line(self, expr, replacement):
         for index, l in enumerate(self.lines[self.cursor:], self.cursor):
             if expr in l:
