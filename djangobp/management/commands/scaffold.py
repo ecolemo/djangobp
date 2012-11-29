@@ -18,6 +18,7 @@ class Command(BaseCommand):
         controller = model_class.__name__.lower()
 
         copy_tree(os.path.dirname(djangobp.__file__) + os.sep + 'scaffold/modelscaffold/templates', path + '/templates/' + controller , update=True)
+        copy_tree(os.path.dirname(djangobp.__file__) + os.sep + 'scaffold/modelscaffold/common', path + '/templates/common', update=True)
         copy_file(os.path.dirname(djangobp.__file__) + os.sep + 'scaffold/modelscaffold/sample.py', path + '/controllers/' + controller + '.py', update=True)
 
         controller_edit = CodeEditor(path + '/controllers/' + controller + '.py')

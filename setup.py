@@ -11,10 +11,12 @@ setup(name='djangobp',
                 'djangobp.scaffold.app.templates',
                 'djangobp.scaffold.modelscaffold',
                 'djangobp.scaffold.modelscaffold.templates',
+                'djangobp.scaffold.modelscaffold.common',
                 ],
       package_data={'djangobp.scaffold.app.static': ['css/*', 'js/*', 'images/*', 'fancybox/*'],
                     'djangobp.scaffold.app.templates': ['*'],
                     'djangobp.scaffold.modelscaffold.templates': ['*'],
+                    'djangobp.scaffold.modelscaffold.common': ['*'],
                     },
       scripts=['scripts/djangobp-install.py']
       )

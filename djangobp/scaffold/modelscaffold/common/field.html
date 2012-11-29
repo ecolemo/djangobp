@@ -1,0 +1,33 @@
+<%page args="field"/>
+<div class="control-group ${'error' if field.errors else ''} ${'required' if field.field.required else ''}">
+    % if 'is_checkbox' in field:
+                <div class="controls">
+                    <label class="checkbox">
+                        ${ field } <span>${ field.label }</span>
+                    </label>
+
+                    % for error in field.errors:
+                        <span class="help-inline">${ error }</span>
+                    % endfor
+
+                    % if field.help_text:
+                    <p class="help-block">
+                        ${ field.help_text }
+                    </p>
+                    % endif
+                </div>
+    % else:
+        <label class="control-label" for="${ field.auto_id }">${ field.label }</label>
+        <div class="controls">
+            ${ field }
+            % for error in field.errors:
+                <span class="help-inline">${ error }</span>
+            % endfor
+            % if field.help_text:
+            <p class="help-block">
+                ${ field.help_text }
+            </p>
+            % endif
+        </div>
+    % endif
+</div>
