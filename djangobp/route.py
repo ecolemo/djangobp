@@ -57,13 +57,13 @@ def discover_controllers(package):
             
             if len(args) == 0 or args[0] != 'request': continue
             
-            urls.append(url(name + '/' + member + '/(?P<resource_id>[^/\?\&.]+)', func))
-            urls.append(url(name + '/' + member, func))
+            urls.append(url(name + '/(?P<resource_id>[^/\?\&.]+)/' + member + '$', func))
+            urls.append(url(name + '/' + member + '$', func))
 
         if 'show' in dir(controller):
-            urls.append(url(name + '/(?P<resource_id>[^/\?\&.]+)', func))
+            urls.append(url(name + '/(?P<resource_id>[^/\?\&.]+)$', getattr(controller, 'show')))
         if 'index' in dir(controller):
-            urls.append(url(name, getattr(controller, 'index')))
+            urls.append(url(name + '$', getattr(controller, 'index')))
             
                 
     return include(urls)
@@ -74,8 +74,8 @@ def render_to_response(filename, dictionary):
     templates = importlib.import_module(app_name + '.templates')
 
     try:
-        lookup = TemplateLookup(directories=[templates.__path__[0]], input_encoding='utf8')
-        template = Template(filename=templates.__path__[0] + os.sep + filename, input_encoding='utf8', output_encoding='utf8', lookup=lookup, imports=['from djangobp.textutil import gettext as _'])
+        template_lookup = TemplateLookup(directories=[templates.__path__[0]], input_encoding='utf8')
+        template = Template(filename=templates.__path__[0] + os.sep + filename, input_encoding='utf8', output_encoding='utf8', template_lookup=template_lookup, imports=['from djangobp.textutil import gettext as _'])
         return HttpResponse(template.render(**dictionary))
     except:
         return HttpResponseServerError(exceptions.html_error_template().render())
