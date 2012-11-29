@@ -20,11 +20,11 @@ for app in settings.INSTALLED_APPS:
     if os.path.isdir(template_dir):
         app_template_dirs.append(template_dir.decode(fs_encoding))
 
+template_lookup = TemplateLookup(directories=app_template_dirs, input_encoding='utf8', output_encoding='utf8', imports=['from djangobp.textutil import gettext as _'])
 def render_to_response(filename, dictionary):
 
     try:
-        lookup = TemplateLookup(directories=app_template_dirs, input_encoding='utf8', output_encoding='utf8', imports=['from djangobp.textutil import gettext as _'])
-        template = lookup.get_template(filename)
+        template = template_lookup.get_template(filename)
         return HttpResponse(template.render(**dictionary))
     except:
         return HttpResponseServerError(exceptions.html_error_template().render())
