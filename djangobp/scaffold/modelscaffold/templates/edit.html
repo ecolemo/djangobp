@@ -1,0 +1,26 @@
+<%inherit file="/layout.html"/>
+<%block name="title">Cafe</%block>
+<%block name="head">
+<link rel="stylesheet" type="text/css" href="/static/components/jquery-ui/themes/base/jquery.ui.all.css">
+<script type="text/javascript" src="/static/components/jquery/jquery.js"></script>
+<script type="text/javascript" src="/static/components/jquery-ui/ui/jquery.ui.core.js"></script>
+<script type="text/javascript" src="/static/components/jquery-ui/ui/jquery.ui.slider.js"></script>
+<script type="text/javascript" src="/static/components/jquery-ui/ui/jquery.ui.effect.js"></script>
+<script type="text/javascript" src="/static/components/jquery-ui/ui/jquery.ui.datepicker.js"></script>
+<script type="text/javascript" src="/static/js/jquery-ui-timepicker-addon.js"></script>
+
+
+<script type="text/javascript">
+$(document.body).ready(function() {
+	$('#id_schedule_begin').datetimepicker({dateFormat:'yy-mm-dd'})
+	$('#id_schedule_end').datetimepicker({dateFormat:'yy-mm-dd'})
+})
+</script>
+<style type="text/css">
+</style>
+</%block>
+
+<%block name="navbar_right">
+</%block>
+
+<%include file="/common/form.html" args="path=request.path.replace('edit', 'update')"/>

@@ -1,0 +1,38 @@
+<%inherit file="/layout.html"/>
+<%block name="title">Cafe</%block>
+<%block name="head">
+<link rel="stylesheet" type="text/css" href="/static/components/jquery-ui/themes/base/jquery.ui.all.css">
+<script type="text/javascript" src="/static/components/jquery/jquery.js"></script>
+<script type="text/javascript" src="/static/components/jquery-ui/ui/jquery.ui.core.js"></script>
+<script type="text/javascript" src="/static/components/jquery-ui/ui/jquery.ui.slider.js"></script>
+<script type="text/javascript" src="/static/components/jquery-ui/ui/jquery.ui.effect.js"></script>
+<script type="text/javascript" src="/static/components/jquery-ui/ui/jquery.ui.datepicker.js"></script>
+<script type="text/javascript" src="/static/js/jquery-ui-timepicker-addon.js"></script>
+
+
+<script type="text/javascript">
+$(document.body).ready(function() {
+	$('#id_schedule_begin').datetimepicker({dateFormat:'yy-mm-dd'})
+	$('#id_schedule_end').datetimepicker({dateFormat:'yy-mm-dd'})
+})
+</script>
+<style type="text/css">
+.ui-timepicker-div .ui-widget-header { margin-bottom: 8px; }
+.ui-timepicker-div dl { text-align: left; }
+.ui-timepicker-div dl dt { height: 25px; margin-bottom: -25px; }
+.ui-timepicker-div dl dd { margin: 0 10px 10px 65px; }
+.ui-timepicker-div td { font-size: 90%; }
+.ui-tpicker-grid-label { background: none; border: none; margin: 0; padding: 0; }
+
+.ui-timepicker-rtl{ direction: rtl; }
+.ui-timepicker-rtl dl { text-align: right; }
+.ui-timepicker-rtl dl dd { margin: 0 65px 10px 10px; }
+
+.ui-timepicker-select { width: 100px; }
+</style>
+</%block>
+
+<%block name="navbar_right">
+</%block>
+
+<%include file="/common/form.html" args="path=request.path.replace('new', 'create')"/>

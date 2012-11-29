@@ -1,0 +1,10 @@
+<%inherit file="/layout.html"/>
+<%block name="title">Meetup list</%block>
+
+<%include file="/common/list.html" args="object_list=current_page.object_list, path=request.path"/>
+<div>
+    <div class="commands" style="float:right;">
+        <a href="${request.path}/new" class="btn btn-primary">New</a>
+    </div>
+    <%include file="/common/paginator.html" args="page_obj=current_page, page_number=page"/>
+</div>

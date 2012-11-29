@@ -1,0 +1,20 @@
+<%inherit file="/layout.html"/>
+<%block name="title">Cafe</%block>
+<div class="form-horizontal">
+    % for field_name in item._meta.get_all_field_names():
+        % if hasattr(item, field_name):
+            <div class="control-group">
+                <label class="control-label">${ field_name }</label>
+                <div class="controls">
+                    ${ getattr(item, field_name) }
+                </div>
+            </div>
+        % endif
+    % endfor
+</div>
+
+<div class="commands">
+    <a href="${request.path.replace('/%s' % item.id, '')}" class="btn">List</a>
+    <a href="${request.path}/edit" class="btn btn-info">Edit</a>
+    <a href="${request.path}/delete" class="btn btn-danger">Delete</a>
+</div>
