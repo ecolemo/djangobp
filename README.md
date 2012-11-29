@@ -30,6 +30,38 @@ This commands do these:
 
 After do that, you can see initial page in [http://localhost:8000](http://localhost:8000).
 
+### scaffold
+Scaffold common pages from model.
+
+	./manage.py scaffold app.models.ModelName
+	
+It generates these:
+
+* controllers/modelname.py
+* templates/modelname
+  * index.html
+  * edit.html
+  * show.html
+  * new.html
+* templates/common
+  * list.html
+  * form.html
+  * field.html
+  * paginator.html
+  
+modelname.py has 7 controller methods.
+
+* index
+* show
+* new
+* create
+* edit
+* update
+* delete
+
+modelname.py has ModelNameForm class
+
+ 
 ## utils
 * fixture
 * httputil - bson encoder for mongodb
