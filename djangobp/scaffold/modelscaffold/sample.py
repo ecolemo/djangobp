@@ -8,7 +8,6 @@ from django.core.urlresolvers import reverse
 from djangobp.scaffold.modelscaffold.models import Sample
 
 class SampleForm(ModelForm):
-    owner = ModelChoiceField(User.objects, widget=HiddenInput)
     class Meta:
         model = Sample
 
