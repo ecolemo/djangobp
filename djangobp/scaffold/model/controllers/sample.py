@@ -5,7 +5,7 @@ from django.forms.widgets import HiddenInput
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator
 from django.core.urlresolvers import reverse
-from djangobp.scaffold.modelscaffold.models import Sample
+from djangobp.scaffold.model.models import Sample
 
 class SampleForm(ModelForm):
     class Meta:

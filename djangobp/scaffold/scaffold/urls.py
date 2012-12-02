@@ -1,14 +1,12 @@
 from django.conf.urls import patterns, include, url
-from djangobp.route import controller_resource_method_pattern, router
-import app.controllers
 
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
 # admin.autodiscover()
 
 urlpatterns = patterns('',
-    (controller_resource_method_pattern, router(app.controllers)),
-                   
+    (r'', include('app.urls')),
+    (r'', include('model.urls')),
     # Examples:
     # url(r'^$', 'scaffold.views.home', name='home'),
     # url(r'^scaffold/', include('scaffold.foo.urls')),

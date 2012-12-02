@@ -17,12 +17,12 @@ class Command(BaseCommand):
         model_class = get_class(args[0])
         controller = model_class.__name__.lower()
 
-        copy_tree(os.path.dirname(djangobp.__file__) + os.sep + 'scaffold/modelscaffold/templates', path + '/templates/' + controller , update=True)
-        copy_tree(os.path.dirname(djangobp.__file__) + os.sep + 'scaffold/modelscaffold/common', path + '/templates/common', update=True)
-        copy_file(os.path.dirname(djangobp.__file__) + os.sep + 'scaffold/modelscaffold/sample.py', path + '/controllers/' + controller + '.py', update=True)
+        copy_tree(os.path.dirname(djangobp.__file__) + os.sep + 'scaffold/model/templates/sample', path + '/templates/' + controller , update=True)
+        copy_tree(os.path.dirname(djangobp.__file__) + os.sep + 'scaffold/model/templates/common', path + '/templates/common', update=True)
+        copy_file(os.path.dirname(djangobp.__file__) + os.sep + 'scaffold/model/controllers/sample.py', path + '/controllers/' + controller + '.py', update=True)
 
         controller_edit = CodeEditor(path + '/controllers/' + controller + '.py')
-        controller_edit.replace_all('from djangobp.scaffold.modelscaffold.models import Sample', 'from %s import %s' % (model_class.__module__, model_class.__name__))
+        controller_edit.replace_all('from djangobp.scaffold.model.models import Sample', 'from %s import %s' % (model_class.__module__, model_class.__name__))
         controller_edit.replace_all('Sample',  model_class.__name__)
         controller_edit.commit()
 

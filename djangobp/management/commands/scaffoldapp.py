@@ -23,7 +23,7 @@ class Command(BaseCommand):
         copy_file(os.path.dirname(djangobp.__file__) + os.sep + 'scaffold/app/urls.py', path, update=True)
         
         urls_edit = CodeEditor(path + 'urls.py')
-        urls_edit.insert_line("    (r'', discover_controllers('%s'))," % (app_name + '.controllers'), after='urlpatterns')
+        urls_edit.replace_all('app', app_name)
         urls_edit.commit()
         project_path = os.path.dirname(os.path.normpath(os.sys.modules[settings.SETTINGS_MODULE].__file__))
         main_urls_edit = CodeEditor(project_path + os.sep + 'urls.py')

@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>로그인 - 대한민국 이슈 트래커</title>
+<style type="text/css">
+body, input, select, textarea {color:black; font-family:'돋움',dotum,Helvetica,sans-serif; font-weight: normal;}
+.subheader {border-bottom: 1px solid #666; clear: both; height: 34px; margin-bottom: 15px;}
+.subheader h1 {font-size: 160%; line-height: 34px; margin-bottom: 0px; }
+
+.login-page #openid_choice {margin-top: 10px;}
+.login-page #openid_btns, .login-page #openid_btns br {margin-left: 30px; clear:both;}
+.login-page #openid_btns {overflow: auto;}
+.login-page .openid_large_btn {float:left; width:100px; height:49px; margin:3px; 
+				   border: 2px solid #ddd; border-right: 2xp solid #ccc; border-bottom: 2px solid #ccc; border-radius: 5px; -webkit-border-radius: 5px;
+				   box-shadow:2px 2px 4px #ddd; -webkit-box-shadow: 2px 2px 4px #ddd;}
+.login-page #openid-url-input-area {margin-top: 30px;}
+.openid-identifier {background:url("/static/images/openid-large.png") center left no-repeat; padding-left:32px; line-height: 22px; font-size: 100%;}
+#openid_submit {border:1px solid #999; font-size: 100%; cursor:pointer;}
+</style>
+
+</head>
+<body class="login-page">
+<div>
+  <div class="subheader">
+  	<h1>로그인</h1>
+  </div>
+  <div id="openid_choice">
+  	<p>페이스북, 트위터, 구글 아이디로 로그인 할 수 있습니다. 아래 로고 중 하나를 클릭하세요.</p>
+<% 
+	##print social_auth['backends'] 
+%>
+    <div id="openid_btns">
+      <a title="페이스북으로 로그인" rel="nofollow" href="${reverse_url('socialauth_begin', args=('facebook',))}?next=${request.REQUEST['next']}" style="background: #fff url(/static/images/openid-logos.png); background-position: -1px -1px" class="stack_exchange openid_large_btn"></a>
+      <a title="트위터로 로그인" rel="nofollow" href="${ reverse_url('socialauth_begin', args=('twitter',))}?next=${request.REQUEST['next']}" style="background: #fff url(/static/images/openid-logos.png); background-position: -1px -51px" class="stack_exchange openid_large_btn"></a>
+      <a title="구글로 로그인" rel="nofollow" href="${ reverse_url('socialauth_begin', args=('google',))}?next=${request.REQUEST['next']}" style="background: #fff url(/static/images/openid-logos.png); background-position: -1px -101px" class="stack_exchange openid_large_btn"></a>
+      <br/>
+      <div id="openid-url-input-area">
+        <p>오픈ID로도 로그인 할 수 있습니다.</p>
+	  </div>
+      <form action="${ reverse_url('socialauth_begin', args=('openid',))}?next=${request.REQUEST['next']}" method="post">
+        <input type="hidden" name="csrfmiddlewaretoken" value="${csrf_token}" />
+        <input type="hidden" value="${request.REQUEST['next']}" name="next" />
+        <div>
+          <input id="openid_identifier" class="openid-identifier" type="text" value="" name="openid_identifier" style="height:28px; width:300px;"/>
+          <input id="openid_submit" type="submit" value="로그인" style="height:28px;"/>
+        </div>
+      </form>
+	</div>
+  </div>
+</div>
+</body>
+</html>
