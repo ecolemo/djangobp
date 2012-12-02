@@ -2,3 +2,4 @@
 build
 dist
 djangobp.egg-info
+djangobp/scaffold/data
