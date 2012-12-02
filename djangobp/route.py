@@ -43,7 +43,9 @@ def route(controllers_root, request, controller=None, resource_id=None, method=N
 def discover_controllers(package):
     urls = []
     __import__(package)
-    urls.append(url('^$', getattr(sys.modules[package], 'index')))
+
+    if hasattr(sys.modules[package], 'index'):
+        urls.append(url('^$', getattr(sys.modules[package], 'index')))
     
     for _, name, _ in pkgutil.iter_modules([sys.modules[package].__path__[0]]):
         __import__(package + '.' + name)
