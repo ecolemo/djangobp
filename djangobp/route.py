@@ -59,11 +59,11 @@ def discover_controllers(package):
             
             if len(args) == 0 or args[0] != 'request': continue
             
-            urls.append(url(name + '/(?P<resource_id>[^/\?\&.]+)/' + member + '$', func))
-            urls.append(url(name + '/' + member + '$', func))
+            urls.append(url(name + '/(?P<resource_id>[^/\?\&.]+)/' + member + '/?$', func))
+            urls.append(url(name + '/' + member + '/?$', func))
 
         if 'show' in dir(controller):
-            urls.append(url(name + '/(?P<resource_id>[^/\?\&.]+)$', getattr(controller, 'show')))
+            urls.append(url(name + '/(?P<resource_id>[^/\?\&.]+)/?$', getattr(controller, 'show')))
         if 'index' in dir(controller):
             urls.append(url(name + '$', getattr(controller, 'index')))
             
