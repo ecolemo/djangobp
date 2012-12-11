@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Login</title>
+</head>
+<body>
+
+<ul>
+<li>login user : ${request.user} ${request.user.email}</li>
+<li>provider : ${request.user.social_auth.all()[0].provider}</li>
+<li><a href="/accounts/logout">logout</a></li>
+
+</ul>
+
+
+</body>
+</html>

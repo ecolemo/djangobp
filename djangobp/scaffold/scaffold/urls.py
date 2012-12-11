@@ -7,6 +7,7 @@ from django.conf.urls import patterns, include, url
 urlpatterns = patterns('',
     (r'', include('app.urls')),
     (r'', include('model.urls')),
+    (r'', include('socialauth.urls')),
     # Examples:
     # url(r'^$', 'scaffold.views.home', name='home'),
     # url(r'^scaffold/', include('scaffold.foo.urls')),

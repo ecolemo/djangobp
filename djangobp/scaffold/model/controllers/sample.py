@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from django.core.paginator import Paginator
 from django.core.urlresolvers import reverse
 from djangobp.scaffold.model.models import Sample
+from django.template.context import RequestContext
 
 class SampleForm(ModelForm):
     class Meta:
@@ -33,7 +34,7 @@ def show(request, resource_id):
 
 def new(request):
     form = form_class(initial={'owner':request.user})
-    return render_to_response(controller + '/new.html', locals())
+    return render_to_response(controller + '/new.html', locals(), RequestContext(request))
 
 def create(request):
     form = form_class(request.POST)
@@ -47,7 +48,7 @@ def create(request):
 def edit(request, resource_id):
     item = model_class.objects.get(id=resource_id)
     form = form_class(instance=item)
-    return render_to_response(controller + '/edit.html', locals())
+    return render_to_response(controller + '/edit.html', locals(), RequestContext(request))
 
 def update(request, resource_id):
     item = model_class.objects.get(id=resource_id)
