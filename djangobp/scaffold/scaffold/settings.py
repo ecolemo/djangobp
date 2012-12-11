@@ -93,7 +93,7 @@ TEMPLATE_LOADERS = (
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-#    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     # Uncomment the next line for simple clickjacking protection:
@@ -121,6 +121,7 @@ INSTALLED_APPS = (
     'app',
     'model',
     'socialauth',
+    'social_auth',
     # Uncomment the next line to enable the admin:
     # 'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
@@ -155,3 +156,8 @@ LOGGING = {
         },
     }
 }
+
+
+from socialauthsettings import *
+
+DEBUG_TOOLBAR_CONFIG = {'INTERCEPT_REDIRECTS':False}
