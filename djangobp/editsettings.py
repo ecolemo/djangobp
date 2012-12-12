@@ -60,6 +60,9 @@ class CodeEditor(object):
                 insert_index = index + 1
                 break;
         self.lines.insert(insert_index, line)
+
+    def append_line(self, line):
+        self.lines.append(line)
         
     def to_source(self):
         return '\n'.join(self.lines)
