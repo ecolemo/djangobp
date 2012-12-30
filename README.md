@@ -2,6 +2,12 @@
 The goal of djangobp is providing collection of common codes for django so that developers can skip boilerplate jobs.
 
 ## Installation
+Using PIP
+
+	pip install djangobp
+	
+From source
+
 	git clone git@github.com:ecolemo/djangobp.git
 	cd djangobp
 	python setup.py install
