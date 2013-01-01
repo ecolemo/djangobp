@@ -70,18 +70,6 @@ def discover_controllers(package):
                 
     return include(urls)
     
-def render_to_response(filename, dictionary):
-    # using app_name that is set by route()
-    app_name = dictionary['request'].app_name
-    templates = importlib.import_module(app_name + '.templates')
-
-    try:
-        template_lookup = TemplateLookup(directories=[templates.__path__[0]], input_encoding='utf8')
-        template = Template(filename=templates.__path__[0] + os.sep + filename, input_encoding='utf8', output_encoding='utf8', template_lookup=template_lookup, imports=['from djangobp.textutil import gettext as _'])
-        return HttpResponse(template.render(**dictionary))
-    except:
-        return HttpResponseServerError(exceptions.html_error_template().render())
-
 @DeprecationWarning
 class HttpResponseJSON(HttpResponse):
     def __init__(self, data):
