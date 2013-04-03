@@ -57,7 +57,8 @@ def discover_controllers(package):
             if not inspect.isfunction(func): continue
             args = inspect.getargspec(func).args
             
-            if len(args) == 0 or args[0] != 'request': continue
+            # TODO filter request functions
+            # if len(args) == 0 or args[0] != 'request': continue
             
             urls.append(url(name + '/(?P<resource_id>[^/\?\&.]+)/' + member + '/?$', func))
             urls.append(url(name + '/' + member + '/?$', func))
