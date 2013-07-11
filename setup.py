@@ -1,6 +1,6 @@
 from setuptools import setup
 setup(name='djangobp',
-      version='1.0.2',
+      version='1.0.3',
       packages=['djangobp', 
                 'djangobp.management', 
                 'djangobp.management.commands', 
