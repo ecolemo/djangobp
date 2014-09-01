@@ -1,6 +1,7 @@
 from setuptools import setup
 setup(name='djangobp',
       version='1.0.4',
+      description='DJango boilerplate (or best practice)',
       packages=['djangobp', 
                 'djangobp.management', 
                 'djangobp.management.commands', 
