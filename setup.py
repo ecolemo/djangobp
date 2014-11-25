@@ -1,5 +1,6 @@
 from setuptools import setup
 setup(name='djangobp',
+      description='Django BoilerPlate codes',
       version='1.0.4',
       packages=['djangobp', 
                 'djangobp.management', 
